@@ -26,7 +26,7 @@ else
         @foreach (Child child in Model)
         {
             <tr>
-                <td>@child.FirstName  @child.LastName</td>
+                <td><a asp-controller="Child" asp-action="Detail" asp-route-id="@child.Id">@child.FirstName  @child.LastName</a></td>
                 <td>@child.Age</td>
                 <td>@child.Gender.</td>
                 

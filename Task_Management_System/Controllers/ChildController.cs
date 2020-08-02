@@ -56,21 +56,52 @@ namespace Task_Management_System.Controllers
             return View("Add",addChildViewModel);
         }
 
-        [HttpGet]
-        public IActionResult Delete()
+        public IActionResult Detail(int id)
         {
-            ViewBag.children = context.Children.ToList();
-            return View();
+            Child theChild = context.Children.Single(e => e.Id == id);
+
+            ChildDetailViewModel childDetailViewModel = new ChildDetailViewModel(theChild);
+
+            return View(childDetailViewModel);
+        }
+
+        //[HttpGet]
+        //public IActionResult Delete()
+        //{
+        //    ViewBag.children = context.Children.ToList();
+        //    return View();
+        //}
+
+        [HttpPost]
+        //[Route("Child/Delete/{childId} ")]
+        public IActionResult Delete(int childId)
+        {
+            //Console.WriteLine("Child Id to be deleted: "+childId);
+            Child theChild = context.Children.Single(e=>e.Id == childId);
+            context.Children.Remove(theChild);
+            
+            context.SaveChanges();
+            return Redirect("/Child");
+        }
+
+        [HttpGet]
+        [Route("Child/Edit/{childId}")]
+        public IActionResult Edit(int childId)
+        {
+            Child theChild = context.Children.Single(e => e.Id == childId);
+            return View(theChild);
         }
 
         [HttpPost]
-        public IActionResult Delete(int[] childIds)
+        public IActionResult Edit(Child child)
         {
-            foreach(int childId in childIds)
-            {
-                Child theChild = context.Children.Find(childId);
-                context.Children.Remove(theChild);
-            }
+            Child c = context.Children.Find(child.Id);
+
+            c.FirstName = child.FirstName;
+            c.LastName = child.LastName;
+            c.Age = child.Age;
+            c.Gender = child.Gender;
+            
             context.SaveChanges();
             return Redirect("/Child");
         }

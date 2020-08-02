@@ -1,0 +1,37 @@
+﻿@model Task_Management_System.ViewModel.ChildDetailViewModel
+
+<h1>Details of @Model.FirstName:</h1>
+
+
+<table class="table">
+    <tr>
+        <th>First Name</th>
+        <td>@Model.FirstName</td>
+    </tr>
+    <tr>
+        <th>Last Name</th>
+        <td>@Model.LastName</td>
+    </tr>
+    <tr>
+        <th>Age</th>
+        <td>@Model.Age</td>
+    </tr>
+    <tr>
+        <th>Gender</th>
+        <td>@Model.Gender</td>
+    </tr>
+
+</table>
+<p>@Model.ChildId</p>
+<form method="post">
+    <input type="hidden" id="childId" name="childId" value="@Model.ChildId" />
+
+    <input type="submit" value="Delete Child" asp-controller="Child" asp-action="Delete"  />
+
+</form>
+<form method="Get">
+
+    <input type="submit" value="Edit Child" asp-controller="Child" asp-action="Edit" asp-route-id="@Model.ChildId" />
+
+</form>
+
