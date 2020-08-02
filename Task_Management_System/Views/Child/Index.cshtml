@@ -1,0 +1,36 @@
+﻿
+
+
+@model List<Task_Management_System.Models.Child>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Parent Dashboard!</h1>
+    <p><a asp-controller="Child" asp-action="Add">Add a new Child</a></p>
+    <p><a asp-controller="Child" asp-action="Delete">Delete Child Details</a></p>
+    <p><a asp-controller="Child" asp-action="Edit">Edit child Details</a></p>
+</div>
+
+@if (Model.Count == 0)
+{
+    <p>No Child added yet!</p>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>Child Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+           
+        </tr>
+        @foreach (Child child in Model)
+        {
+            <tr>
+                <td>@child.FirstName  @child.LastName</td>
+                <td>@child.Age</td>
+                <td>@child.Gender.</td>
+                
+            </tr>
+        }
+    </table>
+}

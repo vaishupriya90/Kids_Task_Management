@@ -1,0 +1,17 @@
+﻿
+<h1>Delete Child Detail</h1>
+
+<form method="post">
+    @foreach (var child in ViewBag.children)
+    {
+        <div class="form-group">
+            <label>
+                <span>@child.FirstName @child.LastName</span>
+                <input type="checkbox" name="childIds" value="@child.Id" class="form-control">
+            </label>
+        </div>
+    }
+
+    <input type="submit" value="Delete Selected Names" class="btn btn-danger">
+
+</form>
