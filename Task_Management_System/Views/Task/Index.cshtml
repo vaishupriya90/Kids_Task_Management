@@ -1,0 +1,35 @@
+﻿@model List<Task_Management_System.Models.Task>
+
+<br />
+<div class="row">
+    <div class="col-sm-6"><h4>Task List</h4></div>
+    <div class="col-sm-6"><a class="btn btn-info" role="button" asp-controller="Task" asp-action="Add">Add Task</a></div>
+</div>
+<br />
+
+@if (Model.Count == 0)
+{
+    <p>No Tasks Yet!!</p>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>Task Name</th>
+            <th>Description</th>
+            <th>Points</th>
+            <th>Child Name</th>
+
+        </tr>
+        @foreach (var tsk in Model)
+        {
+            <tr>
+                <td>@tsk.Name</td>
+                <td>@tsk.Description</td>
+                <td>@tsk.Point</td>
+                <td>@tsk.Child.FirstName</td>
+            </tr>
+        }
+    </table>
+}
+

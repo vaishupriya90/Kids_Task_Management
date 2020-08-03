@@ -1,37 +1,62 @@
 ﻿@model Task_Management_System.ViewModel.ChildDetailViewModel
 
-<h1>Details of @Model.FirstName:</h1>
+<div class="row">
+    <div class="col-sm-6"><h3>@Model.FirstName's profile details</h3></div>
+    <div class="col-sm-3">
+        <form method="Get" style="display: inline">
+            <input type="submit" class="btn btn-info" value="Edit Profile" asp-controller="Child" asp-action="Edit" asp-route-id="@Model.ChildId" />
+        </form>&nbsp;&nbsp;
+        <form method="post" style="display: inline">
+            <input type="hidden" id="childId" name="childId" value="@Model.ChildId" />
+            <input type="submit" class="btn btn-danger" value="Delete Profile" asp-controller="Child" asp-action="Delete" />
+        </form>
+    </div>
+</div>
 
+<div class="form-group">
+    <table class="table">
+        <tr>
+            <th>First Name</th>
+            <td>@Model.FirstName</td>
+        </tr>
+        <tr>
+            <th>Last Name</th>
+            <td>@Model.LastName</td>
+        </tr>
+        <tr>
+            <th>Age</th>
+            <td>@Model.Age</td>
+        </tr>
+        <tr>
+            <th>Gender</th>
+            <td>@Model.Gender</td>
+        </tr>
 
-<table class="table">
-    <tr>
-        <th>First Name</th>
-        <td>@Model.FirstName</td>
-    </tr>
-    <tr>
-        <th>Last Name</th>
-        <td>@Model.LastName</td>
-    </tr>
-    <tr>
-        <th>Age</th>
-        <td>@Model.Age</td>
-    </tr>
-    <tr>
-        <th>Gender</th>
-        <td>@Model.Gender</td>
-    </tr>
+    </table>
+</div>
 
-</table>
-<p>@Model.ChildId</p>
-<form method="post">
-    <input type="hidden" id="childId" name="childId" value="@Model.ChildId" />
+@if (Model.Tasks.Count == 0)
+{
+    <p>No Tasks added for @Model.FirstName yet!</p>
+}
+else
+{
+    <h4>Assigned Tasks:</h4>
+    <table class="table">
+        <tr>
+            <th>Task Name</th>
+            <th>Description</th>
+            <th>Points</th>
+        </tr>
+        @foreach (Task_Management_System.Models.Task task in Model.Tasks)
+        {
+            <tr>
+                <td>@task.Name</td>
+                <td>@task.Description.</td>
+                <td>@task.Point</td>
+            </tr>
+        }
+    </table>
+}
 
-    <input type="submit" value="Delete Child" asp-controller="Child" asp-action="Delete"  />
-
-</form>
-<form method="Get">
-
-    <input type="submit" value="Edit Child" asp-controller="Child" asp-action="Edit" asp-route-id="@Model.ChildId" />
-
-</form>
 

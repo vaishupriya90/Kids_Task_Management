@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Task_Management_System.Models
 {
     public class Child
@@ -12,6 +14,11 @@ namespace Task_Management_System.Models
         public int Age { get; set; }
 
         public string Gender { get; set; }
+
+
+        public List<Task> Tasks { get; set; }
+
+
 
         public Child()
         {

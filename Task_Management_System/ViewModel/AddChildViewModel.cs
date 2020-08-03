@@ -13,6 +13,7 @@ namespace Task_Management_System.ViewModel
         public string LastName { get; set; }
 
         [Required]
+
         [Range(0,100)]
         public int Age { get; set; }
 

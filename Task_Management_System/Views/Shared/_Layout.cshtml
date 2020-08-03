@@ -3,21 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Task_Management_System</title>
+    <title>@ViewData["Title"]Funtasktic Kids</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #b62b52;">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Task_Management_System</a>
-                <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="Add">Add Child</a>
-                <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="Detail">Child Detail</a>
-                <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="Index">Parent Dashboard</a>
-
-
-
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Funtasktic Kids</a>
+                <a class="nav-link text-light" asp-area="" asp-controller="Child" asp-action="Index">Parent Dashboard</a>
+                <a class="nav-link text-light" asp-area="" asp-controller="Child" asp-action="Add">Add Child</a>
+                <a class="nav-link text-light" asp-area="" asp-controller="Task" asp-action="Add">Add Task</a>
+                <a class="nav-link text-light" asp-area="" asp-controller="Task" asp-action="Index">Tasks Assigned</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,10 +23,8 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>
@@ -43,7 +39,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - Task_Management_System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - Task Management System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

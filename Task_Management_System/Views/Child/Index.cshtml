@@ -1,15 +1,10 @@
-﻿
-
-
-@model List<Task_Management_System.Models.Child>
-
-<div class="text-center">
-    <h1 class="display-4">Welcome to Parent Dashboard!</h1>
-    <p><a asp-controller="Child" asp-action="Add">Add a new Child</a></p>
-    <p><a asp-controller="Child" asp-action="Delete">Delete Child Details</a></p>
-    <p><a asp-controller="Child" asp-action="Edit">Edit child Details</a></p>
-</div>
-
+﻿@model List<Task_Management_System.Models.Child>
+<br/>
+    <div class="row">
+        <div class="col-sm-6"><h3>Parent Dashboard</h3></div>
+        <div class="col-sm-6"><a class="btn btn-info" role="button" asp-controller="Child" asp-action="Add">Add a new Child</a></div>
+    </div>
+<br/>
 @if (Model.Count == 0)
 {
     <p>No Child added yet!</p>
@@ -21,7 +16,6 @@ else
             <th>Child Name</th>
             <th>Age</th>
             <th>Gender</th>
-           
         </tr>
         @foreach (Child child in Model)
         {
@@ -29,7 +23,6 @@ else
                 <td><a asp-controller="Child" asp-action="Detail" asp-route-id="@child.Id">@child.FirstName  @child.LastName</a></td>
                 <td>@child.Age</td>
                 <td>@child.Gender.</td>
-                
             </tr>
         }
     </table>

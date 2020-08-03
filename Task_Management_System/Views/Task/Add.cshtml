@@ -1,0 +1,64 @@
+﻿@model Task_Management_System.ViewModel.AddTaskViewModel;
+<br />
+
+<div class="row">
+    <div class="col-sm-12">
+        <h4>Add New Task</h4>
+    </div>
+</div>
+<br />
+
+<form asp-controller="Task" asp-action="Add" method="post">
+    <div class="row form-group">
+        <div class="col-sm-2">
+            <label asp-for="TaskName" class="col-form-label">Task Name</label>
+        </div>
+        <div class="col-sm-2">
+            <input asp-for="TaskName" class="form-control" />
+            <span asp-validation-for="TaskName"></span>
+        </div>
+        <div class="col-sm-8"></div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-sm-2">
+            <label asp-for="Description" class="col-form-label">Description</label>
+        </div>
+        <div class="col-sm-2">
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description"></span>
+        </div>
+        <div class="col-sm-8"></div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-sm-2">
+            <label asp-for="Point" class="col-form-label">Points</label>
+        </div>
+        <div class="col-sm-2">
+            <input asp-for="Point" class="form-control" />
+            <span asp-validation-for="Point"></span>
+        </div>
+        <div class="col-sm-8"></div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-sm-2">
+            <label asp-for="ChildId" class="col-form-label">Points</label>
+        </div>
+        <div class="col-sm-2">
+            <select asp-for="ChildId" asp-items="Model.Children" class="form-control"></select>
+            <span asp-validation-for="ChildId"></span>
+        </div>
+        <div class="col-sm-8"></div>
+    </div>
+    <br />
+    <div class="row form-group">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+            <input type="submit" value="Add Task" class="btn btn-info" />
+        </div>
+        <div class="col-sm-8"></div>
+    </div>
+
+</form>
