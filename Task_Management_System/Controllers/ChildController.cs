@@ -80,7 +80,6 @@ namespace Task_Management_System.Controllers
         }
 
         [HttpGet]
-        [Route("Child/Edit/{childId}")]
         public IActionResult Edit(int childId)
         {
             Child theChild = context.Children.Single(e => e.Id == childId);

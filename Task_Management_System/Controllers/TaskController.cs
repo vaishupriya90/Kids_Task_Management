@@ -22,6 +22,7 @@ namespace Task_Management_System.Controllers
         {
             context = dbContext;
         }
+
         // GET: /<controller>/
         public IActionResult Index()
         {
@@ -31,6 +32,7 @@ namespace Task_Management_System.Controllers
             return View(tasks);
         }
 
+        [HttpGet]
         public IActionResult Add()
         {
             List<Child> children = context.Children.ToList();
@@ -72,11 +74,11 @@ namespace Task_Management_System.Controllers
         [HttpPost]
         public IActionResult Edit(Task task)
         {
-            Task c = context.Tasks.Find(task.Id);
+            Task theTask = context.Tasks.Find(task.Id);
 
-            c.Name = task.Name;
-            c.Description = task.Description;
-            c.Point = task.Point;
+            theTask.Name = task.Name;
+            theTask.Description = task.Description;
+            theTask.Point = task.Point;
 
             context.SaveChanges();
             return Redirect("/Task");
@@ -85,12 +87,10 @@ namespace Task_Management_System.Controllers
         [HttpGet]
         public IActionResult Detail(int id)
         {
-            Task theTask = context.Tasks.Single(e => e.Id == id);
+            Task theTask = context.Tasks.Include(e => e.Child)
+               .Single(e => e.Id == id);
             TaskDetailViewModel taskDetailViewModel = new TaskDetailViewModel(theTask);
 
-            Child child = context.Children.Single(e=>e.Id==theTask.Id);
-
-            taskDetailViewModel.Child = child;
             return View(taskDetailViewModel);
         }
     }
