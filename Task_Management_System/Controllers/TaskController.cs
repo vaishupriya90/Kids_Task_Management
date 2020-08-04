@@ -93,5 +93,15 @@ namespace Task_Management_System.Controllers
 
             return View(taskDetailViewModel);
         }
+
+        [HttpPost]
+        public IActionResult Delete(int taskId)
+        {
+            Task theTask = context.Tasks.Single(e => e.Id == taskId);
+            context.Tasks.Remove(theTask);
+
+            context.SaveChanges();
+            return Redirect("/Task");
+        }
     }
 }
