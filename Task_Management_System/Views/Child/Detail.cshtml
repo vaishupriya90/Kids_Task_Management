@@ -51,7 +51,7 @@ else
         @foreach (Task_Management_System.Models.Task task in Model.Tasks)
         {
             <tr>
-                <td>@task.Name</td>
+                <td><a asp-controller="Task" asp-action="Detail" asp-route-id="@task.Id">@task.Name</a> </td>
                 <td>@task.Description.</td>
                 <td>@task.Point</td>
             </tr>

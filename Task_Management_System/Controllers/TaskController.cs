@@ -42,31 +42,56 @@ namespace Task_Management_System.Controllers
         [HttpPost]
         public IActionResult Add(AddTaskViewModel addTaskViewModel)
         {
-            Child child = context.Children.Find(addTaskViewModel.ChildId);
-
-            Task newTask = new Task
+            if (ModelState.IsValid)
             {
-                Name=addTaskViewModel.TaskName,
-                Description=addTaskViewModel.Description,
-                Point=addTaskViewModel.Point,
-                Child = child
-            };
+                Child child = context.Children.Find(addTaskViewModel.ChildId);
 
-            context.Tasks.Add(newTask);
+                Task newTask = new Task
+                {
+                    Name = addTaskViewModel.TaskName,
+                    Description = addTaskViewModel.Description,
+                    Point = addTaskViewModel.Point,
+                    Child = child
+                };
+
+                context.Tasks.Add(newTask);
+                context.SaveChanges();
+
+                return Redirect("/Task");
+            }
+            return View("Add", addTaskViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int taskId)
+        {
+            Task theTask = context.Tasks.Single(e => e.Id == taskId);
+            return View(theTask);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Task task)
+        {
+            Task c = context.Tasks.Find(task.Id);
+
+            c.Name = task.Name;
+            c.Description = task.Description;
+            c.Point = task.Point;
+
             context.SaveChanges();
-
             return Redirect("/Task");
         }
 
-        //public IActionResult Search(string name)
-        //{
-        //    List<Task> displayTasks = context.Tasks
-        //        .Include(c => c.Child)
-        //        .Where(c => c.Child.FirstName == name).ToList();
+        [HttpGet]
+        public IActionResult Detail(int id)
+        {
+            Task theTask = context.Tasks.Single(e => e.Id == id);
+            TaskDetailViewModel taskDetailViewModel = new TaskDetailViewModel(theTask);
 
-        //    ViewBag.displaySearch = displayTasks;
-        //    return View("/Task");
+            Child child = context.Children.Single(e=>e.Id==theTask.Id);
 
-        //}
+            taskDetailViewModel.Child = child;
+            return View(taskDetailViewModel);
+        }
     }
 }
