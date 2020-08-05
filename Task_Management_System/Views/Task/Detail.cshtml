@@ -1,18 +1,20 @@
 ﻿@model Task_Management_System.ViewModel.TaskDetailViewModel
-
-    <div class="row">
-        <div class="col-sm-6"><h3>Task details</h3></div>
-        <div class="col-sm-3">
-            <form method="Get" style="display: inline">
-                <input type="hidden" id="TaskId" name="TaskId" value="@Model.TaskId" />
-                <input type="submit" class="btn btn-info" value="Edit Task" asp-controller="Task" asp-action="Edit" />
-            </form>&nbsp;&nbsp;
-            <form method="post" style="display: inline">
-                <input type="hidden" id="TaskId" name="TaskId" value="@Model.TaskId" />
-                <input type="submit" class="btn btn-danger" value="Delete Task" asp-controller="Task" asp-action="Delete" />
-            </form>
-        </div>
+@{
+    ViewData["Role"] = "parent";
+}
+<div class="row">
+    <div class="col-sm-6"><h3>Task details</h3></div>
+    <div class="col-sm-3">
+        <form method="Get" style="display: inline">
+            <input type="hidden" id="TaskId" name="TaskId" value="@Model.TaskId" />
+            <input type="submit" class="btn btn-info" value="Edit Task" asp-controller="Task" asp-action="Edit" />
+        </form>&nbsp;&nbsp;
+        <form method="post" style="display: inline">
+            <input type="hidden" id="TaskId" name="TaskId" value="@Model.TaskId" />
+            <input type="submit" class="btn btn-danger" value="Delete Task" asp-controller="Task" asp-action="Delete" />
+        </form>
     </div>
+</div>
 <div class="form-group">
     <table class="table">
         <tr>
@@ -34,5 +36,5 @@
             <td>@Model.ChildName</td>
         </tr>
 
-</table>
+    </table>
 </div>

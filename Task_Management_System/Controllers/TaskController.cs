@@ -35,7 +35,7 @@ namespace Task_Management_System.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            List<User> children = context.Users.ToList();
+            List<User> children = context.Users.Where(e=>e.Role=="child").ToList();
             AddTaskViewModel addTaskViewModel = new AddTaskViewModel(children);
 
             return View(addTaskViewModel);

@@ -1,5 +1,7 @@
 ﻿@model Task_Management_System.ViewModel.ChildDetailViewModel
-
+@{
+    ViewData["Role"] = "parent";
+}
 <div class="row">
     <div class="col-sm-6"><h3>@Model.FirstName's profile details</h3></div>
     <div class="col-sm-3">

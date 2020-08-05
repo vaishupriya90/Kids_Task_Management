@@ -1,5 +1,8 @@
 ﻿@model Task_Management_System.ViewModel.ChildDetailViewModel
 
+@{
+    ViewData["Role"] = "child";
+}
 
 <div class="row">
     <div class="col-sm-6"><h4>Hello @Model.FirstName!</h4></div>
@@ -15,9 +18,9 @@ else
 {
     <div class="row">
         <div class="col-sm-6">
-            <br/>
+            <br />
             <h6>Assigned Tasks:</h6>
-            <br/>
+            <br />
             <table class="table">
                 <tr>
                     <th>Task Name</th>

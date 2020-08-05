@@ -41,7 +41,7 @@ namespace Task_Management_System.Controllers
                     {
                         if (user.Role == "parent")
                         {
-                            List<User> children = context.Users.ToList();
+                            List<User> children = context.Users.Where(e=>e.Role=="child").ToList();
                             return View("../Child/Index", children);
                         }
                         else
