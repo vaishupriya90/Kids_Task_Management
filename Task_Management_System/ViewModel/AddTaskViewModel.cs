@@ -26,7 +26,7 @@ namespace Task_Management_System.ViewModel
 
         }
 
-        public AddTaskViewModel(List<Child> children)
+        public AddTaskViewModel(List<User> children)
         {
             Children = new List<SelectListItem>();
 

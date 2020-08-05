@@ -14,11 +14,9 @@ namespace Task_Management_System.Models
 
         public int Point { get; set; }
 
-        public Child Child { get; set; }
+        public User User { get; set; }
 
-        public int ChildId { get; set; }
-
-
+        public int UserId { get; set; }
 
         public Task()
         {

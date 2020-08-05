@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Task_Management_System.Data;
 using Task_Management_System.Models;
 using Task_Management_System.ViewModel;
+using Task = Task_Management_System.Models.Task;
 
 namespace Task_Management_System.Controllers
 {
@@ -40,11 +41,16 @@ namespace Task_Management_System.Controllers
                     {
                         if (user.Role == "parent")
                         {
-                            List<Child> children = context.Children.ToList();
+                            List<User> children = context.Users.ToList();
                             return View("../Child/Index", children);
                         }
                         else
-                            return View();
+                        {
+                            List<Task> tasks = context.Tasks.Where(c => c.UserId == user.Id).ToList();
+                            ChildDetailViewModel childDetailViewModel = new ChildDetailViewModel(user);
+                            childDetailViewModel.Tasks = tasks;
+                            return View("ChildDashboard", childDetailViewModel);
+                        }
                     }
                 }
                 return View("Index", userView);

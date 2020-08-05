@@ -7,11 +7,9 @@ namespace Task_Management_System.Data
 {
     public class ManageDbContext:DbContext
     {
-        public DbSet<Child> Children { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public DbSet<Task> Tasks { get; set; }
-
-        public DbSet<User> Users { get; set; }
  
         public ManageDbContext(DbContextOptions<ManageDbContext> options): base(options)
         {

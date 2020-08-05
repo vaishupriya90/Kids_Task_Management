@@ -1,4 +1,4 @@
-﻿@model List<Task_Management_System.Models.Child>
+﻿@model List<Task_Management_System.Models.User>
 <br/>
     <div class="row">
         <div class="col-sm-6"><h3>Parent Dashboard</h3></div>
@@ -17,7 +17,7 @@ else
             <th>Age</th>
             <th>Gender</th>
         </tr>
-        @foreach (Child child in Model)
+        @foreach (User child in Model)
         {
             <tr>
                 <td><a asp-controller="Child" asp-action="Detail" asp-route-id="@child.Id">@child.FirstName  @child.LastName</a></td>
