@@ -4,11 +4,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
 <form method="post" asp-controller="Home" asp-action="SignIn">
     <div class="row form-group">
         <div class="col-sm-2">
@@ -41,8 +36,9 @@
         </div>
         <div class="col-sm-8"></div>
     </div>
-
-    <div class="col-sm-2">
-        <span>@Model.SignInError</span>
+    <div class="row">
+        <div class="col-sm-12">
+            <span>@Model.SignInError</span>
+        </div>
     </div>
 </form>
