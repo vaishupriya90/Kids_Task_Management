@@ -3,42 +3,45 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<div style="background-image:url('images/chef.jpg'); min-height: 1500px; background-repeat:no-repeat">
+    <br/>
+    <br/>
+    <form method="post" asp-controller="Home" asp-action="SignIn">
+        <div class="row form-group">
+            <div class="col-sm-2">
+                <label asp-for="UserName" class="col-form-label">User Name</label>
+            </div>
+            <div class="col-sm-2">
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName"></span>
+            </div>
+            <div class="col-sm-8"></div>
+        </div>
 
-<form method="post" asp-controller="Home" asp-action="SignIn">
-    <div class="row form-group">
-        <div class="col-sm-2">
-            <label asp-for="UserName" class="col-form-label">User Name</label>
+        <div class="row form-group">
+            <div class="col-sm-2">
+                <label asp-for="Password" class="col-form-label">Password</label>
+            </div>
+            <div class="col-sm-2">
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="col-sm-8"></div>
         </div>
-        <div class="col-sm-2">
-            <input asp-for="UserName" class="form-control" />
-            <span asp-validation-for="UserName"></span>
-        </div>
-        <div class="col-sm-8"></div>
-    </div>
-
-    <div class="row form-group">
-        <div class="col-sm-2">
-            <label asp-for="Password" class="col-form-label">Password</label>
-        </div>
-        <div class="col-sm-2">
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password"></span>
-        </div>
-        <div class="col-sm-8"></div>
-    </div>
 
 
-    <br />
-    <div class="row form-group">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-2">
-            <input type="submit" value="Login" class="btn btn-info" />
+        <br />
+        <div class="row form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2">
+                <input type="submit" value="Login" class="btn btn-info" />
+            </div>
+            <div class="col-sm-8"></div>
         </div>
-        <div class="col-sm-8"></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <span>@Model.SignInError</span>
+        <div class="row">
+            <div class="col-sm-12">
+                <span>@Model.SignInError</span>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
