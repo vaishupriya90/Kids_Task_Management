@@ -27,7 +27,7 @@ namespace Task_Management_System.Controllers
         public IActionResult Index()
         {
             List<Task> tasks = context.Tasks
-                .Include(e=> e.Child).ToList();
+                .Include(e=> e.User).ToList();
 
             return View(tasks);
         }
@@ -35,7 +35,7 @@ namespace Task_Management_System.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            List<Child> children = context.Children.ToList();
+            List<User> children = context.Users.ToList();
             AddTaskViewModel addTaskViewModel = new AddTaskViewModel(children);
 
             return View(addTaskViewModel);
@@ -46,14 +46,14 @@ namespace Task_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                Child child = context.Children.Find(addTaskViewModel.ChildId);
+                User child = context.Users.Find(addTaskViewModel.ChildId);
 
                 Task newTask = new Task
                 {
                     Name = addTaskViewModel.TaskName,
                     Description = addTaskViewModel.Description,
                     Point = addTaskViewModel.Point,
-                    Child = child
+                    User = child
                 };
 
                 context.Tasks.Add(newTask);
@@ -87,7 +87,7 @@ namespace Task_Management_System.Controllers
         [HttpGet]
         public IActionResult Detail(int id)
         {
-            Task theTask = context.Tasks.Include(e => e.Child)
+            Task theTask = context.Tasks.Include(e => e.User)
                .Single(e => e.Id == id);
             TaskDetailViewModel taskDetailViewModel = new TaskDetailViewModel(theTask);
 

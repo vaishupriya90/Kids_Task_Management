@@ -24,7 +24,7 @@ namespace Task_Management_System.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<Child> children = context.Children.ToList();
+            List<User> children = context.Users.Where(e=>e.Role=="child").ToList();
             return View(children);
         }
 
@@ -40,17 +40,18 @@ namespace Task_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                Child child = new Child
+                User child = new User
                 {
                     FirstName=addChildViewModel.FirstName,
                     LastName=addChildViewModel.LastName,
                     Age=addChildViewModel.Age,
-                    Gender=addChildViewModel.Gender
-
+                    Gender=addChildViewModel.Gender,
+                    UserName=addChildViewModel.FirstName,
+                    Password="1234",
+                    Role="child"
                 };
-                context.Children.Add(child);
+                context.Users.Add(child);
                 context.SaveChanges();
-
                 return Redirect("/Child");
             }
             return View("Add",addChildViewModel);
@@ -58,11 +59,11 @@ namespace Task_Management_System.Controllers
 
         public IActionResult Detail(int id)
         {
-            Child theChild = context.Children.Single(e => e.Id == id);
+            User theChild = context.Users.Single(e => e.Id == id);
 
             ChildDetailViewModel childDetailViewModel = new ChildDetailViewModel(theChild);
 
-            List<Task> tasks = context.Tasks.Where(c => c.ChildId == theChild.Id).ToList();
+            List<Task> tasks = context.Tasks.Where(c => c.UserId == theChild.Id).ToList();
 
             childDetailViewModel.Tasks=tasks;
 
@@ -72,9 +73,8 @@ namespace Task_Management_System.Controllers
         [HttpPost]
         public IActionResult Delete(int childId)
         {
-            Child theChild = context.Children.Single(e=>e.Id == childId);
-            context.Children.Remove(theChild);
-            
+            User theChild = context.Users.Single(e=>e.Id == childId);
+            context.Users.Remove(theChild);
             context.SaveChanges();
             return Redirect("/Child");
         }
@@ -82,20 +82,19 @@ namespace Task_Management_System.Controllers
         [HttpGet]
         public IActionResult Edit(int childId)
         {
-            Child theChild = context.Children.Single(e => e.Id == childId);
+            User theChild = context.Users.Single(e => e.Id == childId);
             return View(theChild);
         }
 
         [HttpPost]
-        public IActionResult Edit(Child child)
+        public IActionResult Edit(User child)
         {
-            Child c = context.Children.Find(child.Id);
+            User c = context.Users.Find(child.Id);
 
             c.FirstName = child.FirstName;
             c.LastName = child.LastName;
             c.Age = child.Age;
             c.Gender = child.Gender;
-            
             context.SaveChanges();
             return Redirect("/Child");
         }

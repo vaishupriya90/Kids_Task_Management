@@ -24,7 +24,7 @@ namespace Task_Management_System.ViewModel
         {
         }
 
-        public ChildDetailViewModel(Child theChild)
+        public ChildDetailViewModel(User theChild)
         {
             ChildId = theChild.Id;
             FirstName = theChild.FirstName;

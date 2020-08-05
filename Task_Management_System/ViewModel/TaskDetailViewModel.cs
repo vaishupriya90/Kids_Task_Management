@@ -29,7 +29,7 @@ namespace Task_Management_System.ViewModel
             Name = theTask.Name;
             Description = theTask.Description;
             Point = theTask.Point;
-            ChildName = theTask.Child.FirstName + theTask.Child.LastName;
+            ChildName = theTask.User.FirstName + theTask.User.LastName;
         }
 
        
