@@ -5,33 +5,54 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Task_Management_System.Data;
 using Task_Management_System.Models;
+using Task_Management_System.ViewModel;
 
 namespace Task_Management_System.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private ManageDbContext context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ManageDbContext dbContext)
         {
-            _logger = logger;
+            context = dbContext;
+
         }
 
         public IActionResult Index()
         {
-            return View();
+            UserViewModel userViewModel = new UserViewModel();
+            return View(userViewModel);
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult SignIn(string userName, string password)
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            List<User> users = context.Users.Where(e => e.UserName == userName).ToList();
+            UserViewModel userView = new UserViewModel("User Id/Password is incorrect!");
+            if (users != null && users.Count > 0)
+            {
+                foreach (var user in users)
+                {
+                    if (user.Password.Equals(password))
+                    {
+                        if (user.Role == "parent")
+                        {
+                            List<Child> children = context.Children.ToList();
+                            return View("../Child/Index", children);
+                        }
+                        else
+                            return View();
+                    }
+                }
+                return View("Index", userView);
+            }
+            else
+            {
+                return View("Index", userView);
+            }
         }
     }
 }
