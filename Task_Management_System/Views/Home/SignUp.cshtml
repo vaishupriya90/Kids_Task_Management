@@ -1,0 +1,81 @@
+﻿@model Task_Management_System.ViewModel.UserSignUpViewModel
+
+<br />
+<div class="row">
+    <div class="col-sm-12">
+        <h4>New User Sign Up</h4>
+    </div>
+</div>
+<br />
+<form method="post">
+    <div class="row form-group">
+        <div class="col-sm-2">
+            <label asp-for="FirstName" class="col-form-label">First Name</label>
+        </div>
+        <div class="col-sm-2">
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName"></span>
+        </div>
+        <div class="col-sm-8"></div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-sm-2"><label asp-for="LastName" class="col-form-label">Last Name</label></div>
+        <div class="col-sm-2"><input asp-for="LastName" class="form-control" /><span asp-validation-for="LastName"></span></div>
+        <div class="col-sm-8"></div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-2"><label asp-for="Age" class="col-form-label">Age</label></div>
+        <div class="col-sm-2"><input asp-for="Age" class="form-control" /><span asp-validation-for="Age"></span></div>
+        <div class="col-sm-8"></div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-2"><label asp-for="Gender" class="col-form-label">Gender</label></div>
+        <div class="col-sm-2">
+            <select asp-for="Gender" class="form-control">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div class="col-sm-8"></div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-2">
+            <label asp-for="UserName" class="col-form-label">User Name</label>
+        </div>
+        <div class="col-sm-2">
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName"></span>
+        </div>
+        <div class="col-sm-8"></div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-sm-2">
+            <label asp-for="Password" class="col-form-label">Password</label>
+        </div>
+        <div class="col-sm-2">
+            <input type="password" asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div class="col-sm-8"></div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-2"><label asp-for="Role" class="col-form-label">Role</label></div>
+        <div class="col-sm-2">
+            <select asp-for="Role" class="form-control">
+                <option value="child">Child</option>
+                <option value="parent">Parent</option>
+            </select>
+        </div>
+        <div class="col-sm-8"></div>
+    </div>
+    <br />
+    <div class="row form-group">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+            <input type="submit" value="Submit" class="btn btn-info" />
+        </div>
+        <div class="col-sm-8"></div>
+    </div>
+</form>

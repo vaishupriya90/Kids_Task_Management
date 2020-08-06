@@ -3,45 +3,43 @@
 @{
     ViewData["Role"] = "child";
 }
-
 <div class="row">
     <div class="col-sm-6"><h4>Hello @Model.FirstName!</h4></div>
 </div>
-
 <br />
-
-@if (Model.Tasks.Count == 0)
-{
-    <p>No Tasks added for @Model.FirstName yet!</p>
-}
-else
-{
-    <div class="row">
-        <div class="col-sm-6">
+<div class="row">
+    <div class="col-sm-6">
+        @if (Model.Tasks.Count != 0)
+        {
             <br />
             <h6>Assigned Tasks:</h6>
             <br />
             <table class="table">
                 <tr>
+                    <th></th>
                     <th>Task Name</th>
                     <th>Description</th>
                     <th>Points</th>
                 </tr>
                 @foreach (Task_Management_System.Models.Task task in Model.Tasks)
                 {
-                    <tr>
-                        <td>@task.Name</td>
-                        <td>@task.Description.</td>
-                        <td>@task.Point</td>
-                    </tr>
+            <tr>
+                <td><input type="checkbox" /></td>
+                <td>@task.Name</td>
+                <td>@task.Description.</td>
+                <td>@task.Point</td>
+            </tr>
                 }
             </table>
-        </div>
-        <div class="col-sm-6">
-            <div style="background-image:url('../images/schedule.jpg'); min-height: 1500px; background-repeat:no-repeat">
-            </div>
+        }
+        else
+        {
+            <p>No tasks assigned yet for @Model.FirstName @Model.LastName </p>
+        }
+    </div>
+    <div class="col-sm-6">
+        <div style="background-image:url('../images/schedule.jpg'); min-height: 1500px; background-repeat:no-repeat">
         </div>
     </div>
-
-}
+</div>
 
