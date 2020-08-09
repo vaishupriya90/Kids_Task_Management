@@ -1,8 +1,10 @@
 ﻿@model Task_Management_System.ViewModel.ChildDetailViewModel
 
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@using Task_Management_System.Areas.Identity.Data
+
+@inject SignInManager<Task_Management_SystemUser> SignInManager
+@inject UserManager<Task_Management_SystemUser> UserManager
 
 <div class="row">
     <div class="col-sm-6">Debug data: @UserManager.GetUserName(User)</div>

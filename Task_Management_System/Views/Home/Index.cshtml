@@ -1,7 +1,8 @@
 ﻿
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@using Task_Management_System.Areas.Identity.Data
+@inject SignInManager<Task_Management_SystemUser> SignInManager
+@inject UserManager<Task_Management_SystemUser> UserManager
 
 @{
     ViewData["Title"] = "Home Page";

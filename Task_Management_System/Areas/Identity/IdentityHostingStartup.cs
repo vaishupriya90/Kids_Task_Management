@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Task_Management_System.Areas.Identity;
+using Task_Management_System.Areas.Identity.Data;
 using Task_Management_System.Data;
 
 [assembly: HostingStartup(typeof(Task_Management_System.Areas.Identity.IdentityHostingStartup))]
@@ -20,7 +21,7 @@ namespace Task_Management_System.Areas.Identity
                     options.UseMySql(
                         context.Configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddDefaultIdentity<Task_Management_SystemUser>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<ManageDbContext>();
                 

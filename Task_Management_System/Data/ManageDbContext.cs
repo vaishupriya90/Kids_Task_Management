@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Task_Management_System.Areas.Identity.Data;
 
 namespace Task_Management_System.Data
 {
-    public class ManageDbContext: IdentityDbContext<IdentityUser>
+    public class ManageDbContext: IdentityDbContext<Task_Management_SystemUser>
     {
 #pragma warning disable CS0114 // Member hides inherited member; missing override keyword
         public DbSet<User> Users { get; set; }
