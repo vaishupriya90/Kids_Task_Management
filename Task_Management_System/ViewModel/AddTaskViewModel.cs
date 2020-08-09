@@ -19,7 +19,7 @@ namespace Task_Management_System.ViewModel
         public int Point { get; set; }
 
         [Required(ErrorMessage ="Please Select a child to assign the tasks")]
-        public int ChildId { get; set; }
+        public string ChildId { get; set; }
         public List<SelectListItem> Children { get; set; }
 
         public AddTaskViewModel()

@@ -61,8 +61,9 @@ namespace Task_Management_System.Controllers
             return View("Add",addChildViewModel);
         }
 
-        public IActionResult Detail(CustomIdentityUser customIdentityUser)
+        public async System.Threading.Tasks.Task<IActionResult> DetailAsync(string id)
         {
+            CustomIdentityUser customIdentityUser = await userManager.FindByIdAsync(id);
 
             ChildDetailViewModel childDetailViewModel = new ChildDetailViewModel(customIdentityUser);
 

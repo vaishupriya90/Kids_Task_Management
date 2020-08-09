@@ -7,12 +7,30 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        CustomIdentityUser customIdentityUser = await UserManager.GetUserAsync(User);
         <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+            <a id="manage" class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @customIdentityUser.FirstName !</a>
         </li>
+
+        @if (await UserManager.IsInRoleAsync(customIdentityUser, "parent"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-area="" asp-controller="Child" asp-action="Index">Parent Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-area="" asp-controller="Child" asp-action="Add">Add Child</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-area="" asp-controller="Task" asp-action="Add">Add Task</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-area="" asp-controller="Task" asp-action="Index">Tasks Assigned</a>
+            </li>
+        }
+
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                <button id="logout" type="submit" class="nav-link btn btn-link text-light">Logout</button>
             </form>
         </li>
     }

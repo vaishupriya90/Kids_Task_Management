@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Task_Management_System.Areas.Identity.Data;
@@ -20,10 +21,12 @@ namespace Task_Management_System.Controllers
     {
 
         private ManageDbContext context;
+        private UserManager<CustomIdentityUser> userManager;
 
-        public TaskController(ManageDbContext dbContext)
+        public TaskController(ManageDbContext dbContext, UserManager<CustomIdentityUser> userManager)
         {
             context = dbContext;
+            this.userManager = userManager;
         }
 
         // GET: /<controller>/
@@ -40,16 +43,15 @@ namespace Task_Management_System.Controllers
         {
            List<CustomIdentityUser> children = context.customIdentityUsers.ToList();
            AddTaskViewModel  addTaskViewModel = new AddTaskViewModel(children);
-
-            return View(addTaskViewModel);
+           return View(addTaskViewModel);
         }
 
         [HttpPost]
-        public IActionResult Add(AddTaskViewModel addTaskViewModel)
+        public async Task<IActionResult> AddAsync(AddTaskViewModel addTaskViewModel)
         {
             if (ModelState.IsValid)
             {
-                CustomIdentityUser customIdentityUser = context.customIdentityUsers.Find(addTaskViewModel.ChildId);
+                CustomIdentityUser customIdentityUser = await userManager.FindByIdAsync(addTaskViewModel.ChildId);
 
                 Task newTask = new Task
                 {

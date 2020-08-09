@@ -13,14 +13,6 @@
             <div class="container">
                 <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Funtasktic Kids</a>
                 <partial name="_LoginPartial" />
-
-                @if (ViewData["Role"] as string == "parent")
-                {
-                    <a class="nav-link text-light" asp-area="" asp-controller="Child" asp-action="Index">Parent Dashboard</a>
-                    <a class="nav-link text-light" asp-area="" asp-controller="Child" asp-action="Add">Add Child</a>
-                    <a class="nav-link text-light" asp-area="" asp-controller="Task" asp-action="Add">Add Task</a>
-                    <a class="nav-link text-light" asp-area="" asp-controller="Task" asp-action="Index">Tasks Assigned</a>
-                }
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
