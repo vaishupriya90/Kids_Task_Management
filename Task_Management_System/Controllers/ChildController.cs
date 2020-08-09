@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Task_Management_System.Areas.Identity.Data;
 using Task_Management_System.Data;
 using Task_Management_System.Models;
 using Task_Management_System.ViewModel;
@@ -27,7 +28,7 @@ namespace Task_Management_System.Controllers
 
         public IActionResult Index()
         {
-            List<User> children = context.Users.ToList();
+            List<CustomIdentityUser> children =  context.customIdentityUsers.ToList();
             return View(children);
         }
 
@@ -43,7 +44,7 @@ namespace Task_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                User child = new User
+                CustomIdentityUser child = new CustomIdentityUser
                 {
                     FirstName=addChildViewModel.FirstName,
                     LastName=addChildViewModel.LastName,
@@ -52,20 +53,19 @@ namespace Task_Management_System.Controllers
                     //UserName=addChildViewModel.FirstName,
                     //Role="child"
                 };
-                context.Users.Add(child);
+                context.customIdentityUsers.Add(child);
                 context.SaveChanges();
                 return Redirect("/Child");
             }
             return View("Add",addChildViewModel);
         }
 
-        public IActionResult Detail(int id)
+        public IActionResult Detail(CustomIdentityUser customIdentityUser)
         {
-            User theChild = context.Users.Single(e => e.Id == id);
 
-            ChildDetailViewModel childDetailViewModel = new ChildDetailViewModel(theChild);
+            ChildDetailViewModel childDetailViewModel = new ChildDetailViewModel(customIdentityUser);
 
-            List<Task> tasks = context.Tasks.Where(c => c.UserId == theChild.Id).ToList();
+            List<Task> tasks = context.Tasks.Where(c => c.UserId == customIdentityUser.Id).ToList();
 
             childDetailViewModel.Tasks=tasks;
 
@@ -73,25 +73,26 @@ namespace Task_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(int childId)
+        public IActionResult Delete(string childId)
         {
-            User theChild = context.Users.Single(e=>e.Id == childId);
-            context.Users.Remove(theChild);
+            CustomIdentityUser customIdentityUser=context.customIdentityUsers.Single(e => e.Id == childId);
+            //User theChild = context.Users.Single(e=>e.Id == childId);
+            context.Users.Remove(customIdentityUser);
             context.SaveChanges();
             return Redirect("/Child");
         }
 
         [HttpGet]
-        public IActionResult Edit(int childId)
+        public IActionResult Edit(string childId)
         {
-            User theChild = context.Users.Single(e => e.Id == childId);
-            return View(theChild);
+            CustomIdentityUser customIdentityUser = context.customIdentityUsers.Single(e => e.Id == childId);
+            return View(customIdentityUser);
         }
 
         [HttpPost]
-        public IActionResult Edit(User child)
+        public IActionResult Edit(CustomIdentityUser child)
         {
-            User c = context.Users.Find(child.Id);
+            CustomIdentityUser c = context.customIdentityUsers.Find(child.Id);
 
             c.FirstName = child.FirstName;
             c.LastName = child.LastName;
@@ -101,14 +102,14 @@ namespace Task_Management_System.Controllers
             return Redirect("/Child");
         }
 
-        [AllowAnonymous]
-        public IActionResult ChildDashboard(int id)
+        [Authorize(Roles ="child")]
+        public IActionResult ChildDashboard(CustomIdentityUser customIdentityUser)
         {
-            User theChild = context.Users.Single(e => e.Id == id);
+            Console.WriteLine("Selected child Id is: " + customIdentityUser.Id);
 
-            ChildDetailViewModel childDetailViewModel = new ChildDetailViewModel(theChild);
+            ChildDetailViewModel childDetailViewModel = new ChildDetailViewModel(customIdentityUser);
 
-            List<Task> tasks = context.Tasks.Where(c => c.UserId == theChild.Id).ToList();
+            List<Task> tasks = context.Tasks.Where(c => c.UserId == customIdentityUser.Id).ToList();
 
             childDetailViewModel.Tasks = tasks;
 

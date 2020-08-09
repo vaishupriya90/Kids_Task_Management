@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Task_Management_System.Areas.Identity.Data;
 using Task_Management_System.Data;
 using Task_Management_System.Models;
 using Task_Management_System.ViewModel;
@@ -14,7 +15,7 @@ using Task = Task_Management_System.Models.Task;
 
 namespace Task_Management_System.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "parent")]
     public class TaskController : Controller
     {
 
@@ -37,7 +38,7 @@ namespace Task_Management_System.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-           List<User> children = context.Users.ToList();
+           List<CustomIdentityUser> children = context.customIdentityUsers.ToList();
            AddTaskViewModel  addTaskViewModel = new AddTaskViewModel(children);
 
             return View(addTaskViewModel);
@@ -48,14 +49,14 @@ namespace Task_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                User child = context.Users.Find(addTaskViewModel.ChildId);
+                CustomIdentityUser customIdentityUser = context.customIdentityUsers.Find(addTaskViewModel.ChildId);
 
                 Task newTask = new Task
                 {
                     Name = addTaskViewModel.TaskName,
                     Description = addTaskViewModel.Description,
                     Point = addTaskViewModel.Point,
-                    User = child
+                    User = customIdentityUser
                 };
 
                 context.Tasks.Add(newTask);

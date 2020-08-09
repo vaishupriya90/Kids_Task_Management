@@ -17,14 +17,16 @@
 {
     @if (User.IsInRole("parent"))
     {
+        CustomIdentityUser customIdentityUser = await UserManager.GetUserAsync(User);
         <script>
-        window.location.href = "@Url.Action("index", "Child")";
+        window.location.href = "@Url.Action("index", "Child", customIdentityUser)";
         </script>
     }
     else
     {
+        CustomIdentityUser customIdentityUser = await UserManager.GetUserAsync(User);
         <script>
-        window.location.href = "@Url.Action("ChildDashboard","Child")";
+        window.location.href = "@Url.Action("ChildDashboard", "Child", customIdentityUser)";
         </script>
     }
 }

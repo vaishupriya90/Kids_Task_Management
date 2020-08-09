@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Task_Management_System.Areas.Identity.Data;
 using Task_Management_System.Models;
 
 namespace Task_Management_System.ViewModel
@@ -26,7 +27,7 @@ namespace Task_Management_System.ViewModel
 
         }
 
-        public AddTaskViewModel(List<User> children)
+        public AddTaskViewModel(List<CustomIdentityUser> children)
         {
             Children = new List<SelectListItem>();
 

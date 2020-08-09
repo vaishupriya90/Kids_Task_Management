@@ -11,11 +11,14 @@ namespace Task_Management_System.Data
     public class ManageDbContext: IdentityDbContext<CustomIdentityUser>
     {
 #pragma warning disable CS0114 // Member hides inherited member; missing override keyword
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
 #pragma warning restore CS0114 // Member hides inherited member; missing override keyword
 
         public DbSet<Task> Tasks { get; set; }
- 
+
+        public DbSet<CustomIdentityUser> customIdentityUsers { get; set; }
+
+
         public ManageDbContext(DbContextOptions<ManageDbContext> options): base(options)
         {
 

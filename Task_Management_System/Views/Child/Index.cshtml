@@ -1,33 +1,35 @@
-﻿@model List<Task_Management_System.Models.User>
+﻿
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@using Task_Management_System.Areas.Identity.Data
+@inject SignInManager<CustomIdentityUser> SignInManager
+@inject UserManager<CustomIdentityUser> UserManager
 
-<br />
-<div class="row">
-    <div class="col-sm-6"><h3>Parent Dashboard </h3></div>
-    <div class="col-sm-6"><a class="btn btn-info" role="button" asp-controller="Child" asp-action="Add">Add a new Child</a></div>
-</div>
-<br />
-@if (Model.Count == 0)
-{
-    <p>No Child added yet!</p>
-}
-else
-{
-    <table class="table">
-        <tr>
-            <th>Child Name</th>
-            <th>Age</th>
-            <th>Gender</th>
-        </tr>
-        @foreach (User child in Model)
-        {
+
+    <br />
+    <div class="row">
+        <div class="col-sm-6"><h3>Parent Dashboard </h3></div>
+        <div class="col-sm-6"><a class="btn btn-info" role="button" asp-controller="Child" asp-action="Add">Add a new Child</a></div>
+    </div>
+    <br />
+    @if (Model.Count == 0)
+    {
+        <p>No Child added yet!</p>
+    }
+    else
+    {
+        <table class="table">
             <tr>
-                <td><a asp-controller="Child" asp-action="Detail" asp-route-id="@child.Id">@child.FirstName  @child.LastName</a></td>
-                <td>@child.Age</td>
-                <td>@child.Gender.</td>
+                <th>Child Name</th>
+                <th>Age</th>
+                <th>Gender</th>
             </tr>
-        }
-    </table>
-}
+            @foreach (CustomIdentityUser child in Model)
+            {
+                <tr>
+                    <td><a asp-controller="Child" asp-action="Detail" asp-route-id="@child.Id">@child.FirstName  @child.LastName</a></td>
+                    <td>@child.Age</td>
+                    <td>@child.Gender.</td>
+                </tr>
+            }
+        </table>
+    }
