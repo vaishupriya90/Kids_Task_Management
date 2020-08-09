@@ -18,7 +18,6 @@ namespace Task_Management_System.Data
 
         public DbSet<CustomIdentityUser> customIdentityUsers { get; set; }
 
-
         public ManageDbContext(DbContextOptions<ManageDbContext> options): base(options)
         {
 

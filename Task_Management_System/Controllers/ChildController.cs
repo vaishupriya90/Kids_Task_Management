@@ -19,17 +19,18 @@ namespace Task_Management_System.Controllers
     public class ChildController : Controller
     {
         private ManageDbContext context;
+        private UserManager<CustomIdentityUser> userManager;
 
-
-        public ChildController(ManageDbContext dbContext)
+        public ChildController(ManageDbContext dbContext, UserManager<CustomIdentityUser> userManager)
         {
             context = dbContext;
+            this.userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async System.Threading.Tasks.Task<IActionResult> IndexAsync()
         {
-            List<CustomIdentityUser> children =  context.customIdentityUsers.ToList();
-            return View(children);
+            IList<CustomIdentityUser> customIdentityUsers = await userManager.GetUsersInRoleAsync("child");
+            return View(customIdentityUsers);
         }
 
         [HttpGet]
