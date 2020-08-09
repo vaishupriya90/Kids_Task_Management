@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -21,10 +22,17 @@ namespace Task_Management_System.Areas.Identity
                     options.UseMySql(
                         context.Configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddDefaultIdentity<Task_Management_SystemUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddDefaultIdentity<CustomIdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<ManageDbContext>();
-                
+
+                //services.AddAuthorization(options =>
+                //{
+                //    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                //        .RequireAuthenticatedUser()
+                //        .Build();
+                //});
+
             });
         }
     }

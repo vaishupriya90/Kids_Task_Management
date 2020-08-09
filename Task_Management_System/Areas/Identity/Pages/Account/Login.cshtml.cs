@@ -18,13 +18,13 @@ namespace Task_Management_System.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<Task_Management_SystemUser> _userManager;
-        private readonly SignInManager<Task_Management_SystemUser> _signInManager;
+        private readonly UserManager<CustomIdentityUser> _userManager;
+        private readonly SignInManager<CustomIdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<Task_Management_SystemUser> signInManager,
+        public LoginModel(SignInManager<CustomIdentityUser> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<Task_Management_SystemUser> userManager)
+            UserManager<CustomIdentityUser> userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -44,8 +44,7 @@ namespace Task_Management_System.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            public string UserName { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
@@ -80,7 +79,7 @@ namespace Task_Management_System.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

@@ -13,10 +13,10 @@ namespace Task_Management_System.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterConfirmationModel : PageModel
     {
-        private readonly UserManager<Task_Management_SystemUser> _userManager;
+        private readonly UserManager<CustomIdentityUser> _userManager;
         private readonly IEmailSender _sender;
 
-        public RegisterConfirmationModel(UserManager<Task_Management_SystemUser> userManager, IEmailSender sender)
+        public RegisterConfirmationModel(UserManager<CustomIdentityUser> userManager, IEmailSender sender)
         {
             _userManager = userManager;
             _sender = sender;

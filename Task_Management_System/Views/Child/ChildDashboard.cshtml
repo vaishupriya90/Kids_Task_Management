@@ -3,8 +3,8 @@
 @using Microsoft.AspNetCore.Identity
 @using Task_Management_System.Areas.Identity.Data
 
-@inject SignInManager<Task_Management_SystemUser> SignInManager
-@inject UserManager<Task_Management_SystemUser> UserManager
+@inject SignInManager<CustomIdentityUser> SignInManager
+@inject UserManager<CustomIdentityUser> UserManager
 
 <div class="row">
     <div class="col-sm-6">Debug data: @UserManager.GetUserName(User)</div>

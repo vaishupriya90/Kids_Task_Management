@@ -14,10 +14,10 @@ namespace Task_Management_System.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LogoutModel : PageModel
     {
-        private readonly SignInManager<Task_Management_SystemUser> _signInManager;
+        private readonly SignInManager<CustomIdentityUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
 
-        public LogoutModel(SignInManager<Task_Management_SystemUser> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(SignInManager<CustomIdentityUser> signInManager, ILogger<LogoutModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
