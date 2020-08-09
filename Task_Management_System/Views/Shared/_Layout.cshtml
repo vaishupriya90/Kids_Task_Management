@@ -12,6 +12,8 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #b62b52;">
             <div class="container">
                 <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Funtasktic Kids</a>
+                <partial name="_LoginPartial" />
+
                 @if (ViewData["Role"] as string == "parent")
                 {
                     <a class="nav-link text-light" asp-area="" asp-controller="Child" asp-action="Index">Parent Dashboard</a>

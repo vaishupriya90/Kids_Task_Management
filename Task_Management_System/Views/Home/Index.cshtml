@@ -1,4 +1,7 @@
-﻿@model Task_Management_System.ViewModel.UserViewModel
+﻿
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Home Page";
@@ -7,47 +10,21 @@
 <br />
 <div class="row">
     <div class="col-sm-9" style="background-image:url('../images/chor.jpg'); min-height: 500px; max-width:1200px; background-repeat:no-repeat; border-right:none"></div>
-    <div class="col-sm-3">
-        <form method="post" asp-controller="Home" asp-action="SignIn">
-            <div class="row form-group">
-                <div class="col-sm-6">
-                    <label asp-for="UserName" class="col-form-label">User Name</label>
-                </div>
-                <div class="col-sm-6">
-                    <input asp-for="UserName" class="form-control" />
-                    <span asp-validation-for="UserName"></span>
-                </div>
-                <div class="col-sm-6"></div>
-            </div>
-
-            <div class="row form-group">
-                <div class="col-sm-6">
-                    <label asp-for="Password" class="col-form-label">Password</label>
-                </div>
-                <div class="col-sm-6">
-                    <input type="password" asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password"></span>
-                </div>
-                <div class="col-sm-2"></div>
-            </div>
-            <br />
-            <div class="row form-group">
-                <div class="col-sm-6">
-                    <a class="btn btn-info" role="button" asp-controller="Home" asp-action="SignUp">Sign Up</a>
-                </div>
-                <div class="col-sm-6">
-                    <input type="submit" value="Login" class="btn btn-info" />
-                </div>
-                <div class="col-sm-2"></div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <span>@Model.SignInError</span>
-                </div>
-            </div>
-        </form>
-        <form method="post" asp-controller="Home" asp-action="SignIn">
-
-        </form>
-    </div>
+    <div class="col-sm-3"></div>
 </div>
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (User.IsInRole("parent"))
+    {
+        <script>
+        window.location.href = "@Url.Action("index", "Child")";
+        </script>
+    }
+    else
+    {
+        <script>
+        window.location.href = "@Url.Action("ChildDashboard","Child")";
+        </script>
+    }
+}
+

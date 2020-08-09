@@ -1,10 +1,11 @@
 ﻿@model List<Task_Management_System.Models.User>
-@{
-    ViewData["Role"] = "parent";
-}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 <br />
 <div class="row">
-    <div class="col-sm-6"><h3>Parent Dashboard</h3></div>
+    <div class="col-sm-6"><h3>Parent Dashboard </h3></div>
     <div class="col-sm-6"><a class="btn btn-info" role="button" asp-controller="Child" asp-action="Add">Add a new Child</a></div>
 </div>
 <br />

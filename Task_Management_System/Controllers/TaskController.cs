@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Task_Management_System.Data;
@@ -13,6 +14,7 @@ using Task = Task_Management_System.Models.Task;
 
 namespace Task_Management_System.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TaskController : Controller
     {
 
@@ -35,8 +37,8 @@ namespace Task_Management_System.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            List<User> children = context.Users.Where(e=>e.Role=="child").ToList();
-            AddTaskViewModel addTaskViewModel = new AddTaskViewModel(children);
+           List<User> children = context.Users.ToList();
+           AddTaskViewModel  addTaskViewModel = new AddTaskViewModel(children);
 
             return View(addTaskViewModel);
         }
