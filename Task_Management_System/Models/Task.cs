@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Task_Management_System.Areas.Identity.Data;
 
 namespace Task_Management_System.Models
 {
@@ -14,9 +15,9 @@ namespace Task_Management_System.Models
 
         public int Point { get; set; }
 
-        public User User { get; set; }
+        public CustomIdentityUser User { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public Task()
         {

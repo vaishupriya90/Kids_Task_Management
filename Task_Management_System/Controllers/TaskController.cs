@@ -2,58 +2,62 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Task_Management_System.Areas.Identity.Data;
 using Task_Management_System.Data;
 using Task_Management_System.Models;
 using Task_Management_System.ViewModel;
 using Task = Task_Management_System.Models.Task;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Task_Management_System.Controllers
 {
+    [Authorize(Roles = "parent")]
     public class TaskController : Controller
     {
 
         private ManageDbContext context;
+        private UserManager<CustomIdentityUser> userManager;
 
-        public TaskController(ManageDbContext dbContext)
+        public TaskController(ManageDbContext dbContext, UserManager<CustomIdentityUser> userManager)
         {
             context = dbContext;
+            this.userManager = userManager;
         }
 
         // GET: /<controller>/
         public IActionResult Index()
         {
             List<Task> tasks = context.Tasks
-                .Include(e=> e.User).ToList();
+                .Include(e => e.User).ToList();
 
             return View(tasks);
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> AddAsync()
         {
-            List<User> children = context.Users.Where(e=>e.Role=="child").ToList();
-            AddTaskViewModel addTaskViewModel = new AddTaskViewModel(children);
-
+            IList<CustomIdentityUser> children = await userManager.GetUsersInRoleAsync("child");
+            AddTaskViewModel addTaskViewModel = new AddTaskViewModel((List<CustomIdentityUser>)children);
             return View(addTaskViewModel);
         }
 
         [HttpPost]
-        public IActionResult Add(AddTaskViewModel addTaskViewModel)
+        public async Task<IActionResult> AddAsync(AddTaskViewModel addTaskViewModel)
         {
             if (ModelState.IsValid)
             {
-                User child = context.Users.Find(addTaskViewModel.ChildId);
+                CustomIdentityUser customIdentityUser = await userManager.FindByIdAsync(addTaskViewModel.ChildId);
 
                 Task newTask = new Task
                 {
                     Name = addTaskViewModel.TaskName,
                     Description = addTaskViewModel.Description,
                     Point = addTaskViewModel.Point,
-                    User = child
+                    User = customIdentityUser
                 };
 
                 context.Tasks.Add(newTask);

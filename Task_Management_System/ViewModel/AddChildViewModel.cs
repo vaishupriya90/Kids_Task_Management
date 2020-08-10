@@ -15,7 +15,7 @@ namespace Task_Management_System.ViewModel
         [Required]
 
         [Range(0,100)]
-        public int Age { get; set; }
+        public string Age { get; set; }
 
         [Required(ErrorMessage ="Please select the gender")]
         public string Gender { get; set; }
