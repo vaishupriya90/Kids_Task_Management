@@ -27,12 +27,14 @@ namespace Task_Management_System.Controllers
             this.userManager = userManager;
         }
 
+        [Authorize(Roles = "parent")]
         public async System.Threading.Tasks.Task<IActionResult> IndexAsync()
         {
             IList<CustomIdentityUser> customIdentityUsers = await userManager.GetUsersInRoleAsync("child");
             return View(customIdentityUsers);
         }
 
+        [Authorize(Roles = "parent")]
         [HttpGet]
         public IActionResult Add()
         {
@@ -40,6 +42,7 @@ namespace Task_Management_System.Controllers
             return View(addChildViewModel);
         }
 
+        [Authorize(Roles = "parent")]
         [HttpPost]
         public IActionResult Add(AddChildViewModel addChildViewModel)
         {
@@ -47,10 +50,10 @@ namespace Task_Management_System.Controllers
             {
                 CustomIdentityUser child = new CustomIdentityUser
                 {
-                    FirstName=addChildViewModel.FirstName,
-                    LastName=addChildViewModel.LastName,
-                    Age=addChildViewModel.Age,
-                    Gender=addChildViewModel.Gender,
+                    FirstName = addChildViewModel.FirstName,
+                    LastName = addChildViewModel.LastName,
+                    Age = addChildViewModel.Age,
+                    Gender = addChildViewModel.Gender,
                     //UserName=addChildViewModel.FirstName,
                     //Role="child"
                 };
@@ -58,9 +61,10 @@ namespace Task_Management_System.Controllers
                 context.SaveChanges();
                 return Redirect("/Child");
             }
-            return View("Add",addChildViewModel);
+            return View("Add", addChildViewModel);
         }
 
+        [Authorize(Roles = "parent")]
         public async System.Threading.Tasks.Task<IActionResult> DetailAsync(string id)
         {
             CustomIdentityUser customIdentityUser = await userManager.FindByIdAsync(id);
@@ -69,21 +73,27 @@ namespace Task_Management_System.Controllers
 
             List<Task> tasks = context.Tasks.Where(c => c.UserId == customIdentityUser.Id).ToList();
 
-            childDetailViewModel.Tasks=tasks;
+            childDetailViewModel.Tasks = tasks;
 
             return View(childDetailViewModel);
         }
 
+        [Authorize(Roles = "parent")]
         [HttpPost]
-        public IActionResult Delete(string childId)
+        public async System.Threading.Tasks.Task<IActionResult> DeleteAsync(string childId)
         {
-            CustomIdentityUser customIdentityUser=context.customIdentityUsers.Single(e => e.Id == childId);
-            //User theChild = context.Users.Single(e=>e.Id == childId);
-            context.Users.Remove(customIdentityUser);
+            List<Task> tasks = context.Tasks.Where(e => e.UserId == childId).ToList();
+            foreach (Task t in tasks)
+            {
+                context.Tasks.Remove(t);
+            }
+            CustomIdentityUser customIdentityUser = await userManager.FindByIdAsync(childId);
+            await userManager.DeleteAsync(customIdentityUser);
             context.SaveChanges();
             return Redirect("/Child");
         }
 
+        [Authorize(Roles = "parent")]
         [HttpGet]
         public IActionResult Edit(string childId)
         {
@@ -91,6 +101,7 @@ namespace Task_Management_System.Controllers
             return View(customIdentityUser);
         }
 
+        [Authorize(Roles = "parent")]
         [HttpPost]
         public IActionResult Edit(CustomIdentityUser child)
         {
@@ -104,14 +115,10 @@ namespace Task_Management_System.Controllers
             return Redirect("/Child");
         }
 
-        [Authorize(Roles ="child")]
+        [Authorize(Roles = "child")]
         public async System.Threading.Tasks.Task<IActionResult> ChildDashboardAsync(string id)
         {
-            Console.WriteLine("Selected child Id is: " + id);
-
             CustomIdentityUser customIdentityUser = await userManager.FindByIdAsync(id);
-
-            Console.WriteLine("Selected child Id is: " + customIdentityUser.Id);
 
             ChildDetailViewModel childDetailViewModel = new ChildDetailViewModel(customIdentityUser);
 

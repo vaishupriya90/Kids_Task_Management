@@ -12,7 +12,6 @@ using Task_Management_System.Models;
 using Task_Management_System.ViewModel;
 using Task = Task_Management_System.Models.Task;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Task_Management_System.Controllers
 {
@@ -33,7 +32,7 @@ namespace Task_Management_System.Controllers
         public IActionResult Index()
         {
             List<Task> tasks = context.Tasks
-                .Include(e=> e.User).ToList();
+                .Include(e => e.User).ToList();
 
             return View(tasks);
         }
@@ -41,9 +40,9 @@ namespace Task_Management_System.Controllers
         [HttpGet]
         public async Task<IActionResult> AddAsync()
         {
-           IList<CustomIdentityUser> children = await userManager.GetUsersInRoleAsync("child");
-           AddTaskViewModel  addTaskViewModel = new AddTaskViewModel((List<CustomIdentityUser>)children);
-           return View(addTaskViewModel);
+            IList<CustomIdentityUser> children = await userManager.GetUsersInRoleAsync("child");
+            AddTaskViewModel addTaskViewModel = new AddTaskViewModel((List<CustomIdentityUser>)children);
+            return View(addTaskViewModel);
         }
 
         [HttpPost]

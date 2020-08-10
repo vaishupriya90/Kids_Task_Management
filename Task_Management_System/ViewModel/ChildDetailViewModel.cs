@@ -19,6 +19,8 @@ namespace Task_Management_System.ViewModel
 
         public string Gender { get; set; }
 
+        public int TotalPoints { get; set; }
+
         public List<Task> Tasks { get; set; }
 
         public ChildDetailViewModel()
