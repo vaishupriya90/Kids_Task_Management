@@ -9,10 +9,8 @@
 }
 <br />
 <br />
-<div class="row">
-    <div class="col-sm-9" style="background-image:url('../images/chor.jpg'); min-height: 500px; max-width:1200px; background-repeat:no-repeat; border-right:none"></div>
-    <div class="col-sm-3"></div>
-</div>
+
+
 @if (SignInManager.IsSignedIn(User))
 {
     @if (User.IsInRole("parent"))
@@ -25,9 +23,17 @@
     else
     {
         CustomIdentityUser customIdentityUser = await UserManager.GetUserAsync(User);
+        string userId = customIdentityUser.Id;
         <script>
-        window.location.href = "@Url.Action("ChildDashboard", "Child", customIdentityUser)";
+        window.location.href = "@Url.Action("ChildDashboard", "Child", new { id = userId })";
         </script>
     }
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-9" style="background-image:url('../images/chor.jpg'); min-height: 500px; max-width:1200px; background-repeat:no-repeat; border-right:none"></div>
+        <div class="col-sm-3"></div>
+    </div>
 }
 

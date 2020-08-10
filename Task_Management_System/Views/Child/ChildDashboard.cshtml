@@ -7,8 +7,7 @@
 @inject UserManager<CustomIdentityUser> UserManager
 
 <div class="row">
-    <div class="col-sm-6">Debug data: @UserManager.GetUserName(User)</div>
-    <div class="col-sm-6"><h4>Hello @Model.FirstName!</h4></div>
+    <div class="col-sm-12"><br/></div>
 </div>
 <br />
 <div class="row">
@@ -20,7 +19,6 @@
             <br />
             <table class="table">
                 <tr>
-                    <th></th>
                     <th>Task Name</th>
                     <th>Description</th>
                     <th>Points</th>
@@ -28,7 +26,6 @@
                 @foreach (Task_Management_System.Models.Task task in Model.Tasks)
                 {
                     <tr>
-                        <td><input type="checkbox" /></td>
                         <td>@task.Name</td>
                         <td>@task.Description.</td>
                         <td>@task.Point</td>
@@ -42,7 +39,7 @@
         }
     </div>
     <div class="col-sm-6">
-        <div style="background-image:url('../images/schedule.jpg'); min-height: 1500px; background-repeat:no-repeat">
+        <div style="background-image:url('../../images/schedule.jpg'); min-height: 1500px; background-repeat:no-repeat">
         </div>
     </div>
 </div>

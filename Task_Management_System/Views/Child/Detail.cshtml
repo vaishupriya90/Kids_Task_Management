@@ -5,14 +5,6 @@
 <div class="row">
     <div class="col-sm-6"><h3>@Model.FirstName's profile details</h3></div>
     <div class="col-sm-3">
-        <form method="Get" style="display: inline">
-            <input type="hidden" id="childId" name="childId" value="@Model.ChildId" />
-            <input type="submit" class="btn btn-info" value="Edit Profile" asp-controller="Child" asp-action="Edit" asp-route-id="@Model.ChildId" />
-        </form>&nbsp;&nbsp;
-        <form method="post" style="display: inline">
-            <input type="hidden" id="childId" name="childId" value="@Model.ChildId" />
-            <input type="submit" class="btn btn-danger" value="Delete Profile" asp-controller="Child" asp-action="Delete" />
-        </form>
     </div>
 </div>
 

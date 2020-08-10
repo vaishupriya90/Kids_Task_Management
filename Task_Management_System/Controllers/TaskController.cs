@@ -39,10 +39,10 @@ namespace Task_Management_System.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> AddAsync()
         {
-           List<CustomIdentityUser> children = context.customIdentityUsers.ToList();
-           AddTaskViewModel  addTaskViewModel = new AddTaskViewModel(children);
+           IList<CustomIdentityUser> children = await userManager.GetUsersInRoleAsync("child");
+           AddTaskViewModel  addTaskViewModel = new AddTaskViewModel((List<CustomIdentityUser>)children);
            return View(addTaskViewModel);
         }
 

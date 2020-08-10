@@ -105,8 +105,12 @@ namespace Task_Management_System.Controllers
         }
 
         [Authorize(Roles ="child")]
-        public IActionResult ChildDashboard(CustomIdentityUser customIdentityUser)
+        public async System.Threading.Tasks.Task<IActionResult> ChildDashboardAsync(string id)
         {
+            Console.WriteLine("Selected child Id is: " + id);
+
+            CustomIdentityUser customIdentityUser = await userManager.FindByIdAsync(id);
+
             Console.WriteLine("Selected child Id is: " + customIdentityUser.Id);
 
             ChildDetailViewModel childDetailViewModel = new ChildDetailViewModel(customIdentityUser);
